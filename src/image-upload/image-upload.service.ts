@@ -8,14 +8,14 @@ export class ImageUploadService {
   async uploadImage(req, fileDetails) {
     try {
       if (
-        !req.body.size.includes([2048, 1024, 800]) ||
+        !req.query.size.includes([2048, 1024, 800]) ||
         fileDetails.size >= 1000000
       ) {
         throw new BadRequestException(
           'We support only this sized: 2048 1024, 800 and size less then 1000000',
         );
       }
-      const size = req.body.size ? req.body.size : 800;
+      const size = req.query.size ? req.query.size : 800;
       const originalName = fileDetails.originalname;
       const checkImageFormat = await Utils.checkImageFormat(fileDetails);
       if (checkImageFormat != true) {
